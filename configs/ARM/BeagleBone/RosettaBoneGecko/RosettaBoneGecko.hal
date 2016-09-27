@@ -115,8 +115,9 @@ setp pid.0.deadband [AXIS_0]DEADBAND
 setp pid.0.maxoutput [AXIS_0]MAX_OUTPUT
 
 #(JP) Add home switch input on DB25-11
-net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in
-#setp bb_gpio.p8.in-10.invert 1
+#net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in
+#net home-x bb_gpio.p8.in-8 => axis.0.home-sw-in
+#setp bb_gpio.p8.in-8.invert 1
 
 # ################
 # Y [1] Axis
@@ -168,8 +169,9 @@ setp pid.1.maxoutput [AXIS_1]MAX_OUTPUT
 
 
 #(JP) Add home switch input on DB25-12
-net home-y bb_gpio.p8.in-14 => axis.1.home-sw-in
-#setp bb_gpio.p8.in-14.invert 1
+#net home-y bb_gpio.p8.in-14 => axis.1.home-sw-in
+net home-y bb_gpio.p8.in-10 => axis.1.home-sw-in
+#setp bb_gpio.p8.in-10.invert 1
 
 # ################
 # Z [2] Axis
@@ -258,8 +260,11 @@ setp hpg.stepgen.03.maxaccel        [AXIS_3]STEPGEN_MAX_ACC
 setp hpg.stepgen.03.control-type    1
 setp hpg.stepgen.03.stepinvert      [AXIS_3]STEP_INVERT
 #setp hpg.stepgen.03.step_type       0
-setp hpg.stepgen.03.steppin         0x3E
-setp hpg.stepgen.03.dirpin          0x3F
+#setp hpg.stepgen.03.steppin         0x3E
+setp hpg.stepgen.03.steppin         0x22
+#setp hpg.stepgen.03.dirpin          0x3F
+setp hpg.stepgen.03.dirpin          0x23
+
 
 # set PID loop gains from inifile
 setp pid.3.Pgain [AXIS_3]P
@@ -274,6 +279,7 @@ setp pid.3.maxoutput [AXIS_3]MAX_OUTPUT
 
 
 #(JP) Add home switch input
+# Todo not on the Rosetta bone
 net home-a bb_gpio.p9.in-41 => axis.3.home-sw-in
 #setp bb_gpio.p9.in-41.invert 1
 
@@ -318,6 +324,7 @@ setp bb_gpio.p8.out-26.invert 1
 
 # this input signal must be active LOW to allow the system to energize.
 # this should be fed through an NC STOP type switch from DB25-1 to DB25-10
+# for rosettabone it appears that estop is grounded
 net estop-in bb_gpio.p8.in-09 => iocontrol.0.emc-enable-in
 setp bb_gpio.p8.in-09.invert 1
 
