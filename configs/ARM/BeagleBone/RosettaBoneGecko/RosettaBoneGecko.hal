@@ -33,8 +33,7 @@ loadrt trivkins
 # motion controller, get name and thread periods from ini file
 # trajectory planner
 loadrt tp
-loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES tp=tp kins=trivkins
-
+loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES tp=tp kins=trivkins
 
 # load low-level drivers
 loadrt hal_bb_gpio output_pins=107,113,119,126,214 input_pins=109,110,114,118,241
