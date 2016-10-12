@@ -37,7 +37,7 @@ loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AX
 
 
 # load low-level drivers
-loadrt hal_bb_gpio output_pins=107,113,119,126,214 input_pins=109,110,114,118,241
+loadrt hal_bb_gpio output_pins=107,113,119,126,214 input_pins=108,109,110,114,117,118,241
 loadrt [PRUCONF](DRIVER) prucode=$(HAL_RTMOD_DIR)/[PRUCONF](PRUBIN) [PRUCONF](CONFIG) halname=hpg
 #(JP) Not suing PID loop so comment out
 loadrt pid count=4
@@ -116,7 +116,7 @@ setp pid.0.maxoutput [AXIS_0]MAX_OUTPUT
 
 #(JP) Add home switch input on DB25-11
 #net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in
-#net home-x bb_gpio.p8.in-8 => axis.0.home-sw-in
+net home-x bb_gpio.p8.in-08 => axis.0.home-sw-in
 #setp bb_gpio.p8.in-8.invert 1
 
 # ################
@@ -223,7 +223,7 @@ setp pid.2.maxoutput [AXIS_2]MAX_OUTPUT
 
 
 #(JP) Add home switch input on DB25-13
-net home-z bb_gpio.p8.in-18 => axis.2.home-sw-in
+net home-z bb_gpio.p8.in-17 => axis.2.home-sw-in
 #setp bb_gpio.p8.in-18.invert 1
 
 # ################

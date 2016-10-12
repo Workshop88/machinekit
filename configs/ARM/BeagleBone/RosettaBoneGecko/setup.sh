@@ -76,6 +76,7 @@ fi
 sudo $(which config-pin) -f - <<- EOF
 
 	P8.07	out	# gpio2.2	Enable System
+        P8.08	in      # added 
 	P8.10	in	# gpio2.4	XLIM
 	P8.11	out	# gpio1.13	X_Dir
 	P8.12	out	# gpio1.12	X_Step
