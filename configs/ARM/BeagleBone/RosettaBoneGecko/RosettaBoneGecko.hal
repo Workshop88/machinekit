@@ -116,7 +116,11 @@ setp pid.0.maxoutput [AXIS_0]MAX_OUTPUT
 
 #(JP) Add home switch input on DB25-11
 #net home-x bb_gpio.p8.in-10 => axis.0.home-sw-in
-net home-x bb_gpio.p8.in-08 => axis.0.home-sw-in
+net both-home-x <= bb_gpio.p8.in-08 
+net both-home-x => axis.0.home-sw-in
+net both-home-x => axis.0.neg-lim-sw-in
+net both-home-x => axis.0.pos-lim-sw-in
+
 #setp bb_gpio.p8.in-8.invert 1
 
 # ################
@@ -170,7 +174,12 @@ setp pid.1.maxoutput [AXIS_1]MAX_OUTPUT
 
 #(JP) Add home switch input on DB25-12
 #net home-y bb_gpio.p8.in-14 => axis.1.home-sw-in
-net home-y bb_gpio.p8.in-10 => axis.1.home-sw-in
+net both-home-y <= bb_gpio.p8.in-10 
+net both-home-y => axis.1.home-sw-in
+net both-home-y => axis.1.neg-lim-sw-in
+net both-home-y => axis.1.pos-lim-sw-in
+
+
 #setp bb_gpio.p8.in-10.invert 1
 
 # ################
@@ -223,7 +232,12 @@ setp pid.2.maxoutput [AXIS_2]MAX_OUTPUT
 
 
 #(JP) Add home switch input on DB25-13
-net home-z bb_gpio.p8.in-17 => axis.2.home-sw-in
+net both-home-z bb_gpio.p8.in-17 
+net both-home-z => axis.2.home-sw-in
+net both-home-z => axis.2.neg-lim-sw-in
+net both-home-z => axis.2.pos-lim-sw-in
+
+
 #setp bb_gpio.p8.in-18.invert 1
 
 # ################
