@@ -38,11 +38,12 @@ loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AX
 
 # load low-level drivers
 # DSW pin numbers appear to be HPP where H=BBB header 08 or 09 and PP is the 2 digit pin number 
-loadrt hal_bb_gpio output_pins=107,113,119,126,214 input_pins=108,109,110,114,117,118,225,241
+loadrt hal_bb_gpio output_pins=107,113,119,126,214,226 input_pins=108,109,110,114,117,118,225,241
 loadrt [PRUCONF](DRIVER) prucode=$(HAL_RTMOD_DIR)/[PRUCONF](PRUBIN) [PRUCONF](CONFIG) halname=hpg
 #(JP) Not suing PID loop so comment out
 loadrt pid count=4
 loadrt limit1 count=2
+loadrt charge_pump
 
 # ################################################
 # THREADS
@@ -61,6 +62,7 @@ addf limit1.0                             servo-thread
 addf limit1.1                             servo-thread
 addf hpg.update                           servo-thread
 addf bb_gpio.write                        servo-thread
+addf charge-pump                          servo-thread
 
 
 # ######################################################
@@ -343,6 +345,10 @@ setp bb_gpio.p8.out-26.invert 1
 # TJM had to white wire the gecko fault pin on db-25 to P9.25 aka GPIO_117 aka GPIO3_21
 net estop-in bb_gpio.p9.in-25 => iocontrol.0.emc-enable-in
 setp bb_gpio.p9.in-25.invert 1
+
+
+
+
 # This output is on DB25-14 and is currently tied to spindle control (M3/M5)
 #net Output1 bb_gpio.p8.out-13 => motion.spindle-on
 #setp bb_gpio.p8.out-13.invert 1
@@ -351,8 +357,15 @@ net Output1 bb_gpio.p8.out-13 => motion.spindle-on
 setp bb_gpio.p8.out-13.invert 1
 
 # This output is on DB25-16
-net Output2 bb_gpio.p8.out-19 => halui.mist.is-on
-setp bb_gpio.p8.out-19.invert 1
+# no mister and DB25-16 is currently wired to AXIS_ENABLE(charge pump to gecko drive
+#net Output2 bb_gpio.p8.out-19 => halui.mist.is-on
+#setp bb_gpio.p8.out-19.invert 1
+
+#tjm adding charge pump
+net GeckoChargePump charge-pump.out => bb_gpio.p9.out-26
+net motion-enabled charge-pump.enable motion.motion-enabled
+#tjm (ref https://forum.linuxcnc.org/16-setpconf-wzard/1869-charge-pump)
+
 
 # This output is on DB25-17 (M8/M9)
 net Output3 bb_gpio.p9.out-14 => halui.flood.is-on

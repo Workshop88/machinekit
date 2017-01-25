@@ -76,7 +76,8 @@ fi
 sudo $(which config-pin) -f - <<- EOF
 
 	P8.07	out	# gpio2.2	Enable System
-        P8.08	in      # added 
+        P8.08	in      # gpio2.3       X_MIN 
+#	P8.09	in	# gpio2.5	STOPin
 	P8.10	in	# gpio2.4	XLIM
 	P8.11	out	# gpio1.13	X_Dir
 	P8.12	out	# gpio1.12	X_Step
@@ -86,16 +87,17 @@ sudo $(which config-pin) -f - <<- EOF
 	P8.16	out	# gpio1.14	Y_Step
 	P8.18	in	# gpio2.1	ZLIM
 	P8.19	out	# gpio0.22	PWM1
+
+	P9.11	out	# gpio0.31	A_Step
+	P9.13	out	# gpio0.30	A_Dir
 	P9.14	out	# gpio1.18	PWM2
 	P9.15	out	# gpio1.16	Z_Step
-	P9.23	out	# gpio1.17	Z_Dir
 #	P9.17	out	# gpio0.5	SCS
 #	P9.18	in	# gpio0.4	SDI
 #	P9.21	out	# gpio0.3	SDO
 #	P9.22	out	# gpio0.2	SCK
-        P9.25   in      # gpio3.21      Estop in
-	P9.13	out	# gpio0.30	A_Dir
-	P9.11	out	# gpio0.31	A_Step
-#	P8.09	in	# gpio2.5	STOPin
+	P9.23	out	# gpio1.17	Z_Dir
+        P9.25   in      # gpio3.21      Estop in (white wired to DP25 pin 15 rev1.0 RosettaBone)
+        P9.26   out	# UART1_RXD 	Charge Pump (DSW todo: fix these out of date comments)
 EOF
 
