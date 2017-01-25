@@ -93,8 +93,9 @@ sudo $(which config-pin) -f - <<- EOF
 #	P9.18	in	# gpio0.4	SDI
 #	P9.21	out	# gpio0.3	SDO
 #	P9.22	out	# gpio0.2	SCK
+        P9.25   in      # gpio3.21      Estop in
 	P9.13	out	# gpio0.30	A_Dir
 	P9.11	out	# gpio0.31	A_Step
-	P8.09	in	# gpio2.5	STOPin
+#	P8.09	in	# gpio2.5	STOPin
 EOF
 
