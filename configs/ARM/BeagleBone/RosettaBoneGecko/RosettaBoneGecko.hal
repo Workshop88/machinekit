@@ -27,13 +27,22 @@ loadusr -w ./setup.sh
 # Core EMC/HAL Loads
 # ###################################
 
+#need a thread for the gecko540 at 10khz (servo is too slow )
+loadrt threads name1=geckoChargePumpThread period1=50000
+
 # kinematics
 loadrt trivkins
+
 
 # motion controller, get name and thread periods from ini file
 # trajectory planner
 loadrt tp
+
+
+
 loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES tp=tp kins=trivkins
+
+
 
 
 # load low-level drivers
@@ -62,7 +71,8 @@ addf limit1.0                             servo-thread
 addf limit1.1                             servo-thread
 addf hpg.update                           servo-thread
 addf bb_gpio.write                        servo-thread
-addf charge-pump                          servo-thread
+addf charge-pump                          geckoChargePumpThread
+#addf charge-pump                          servo-thread
 
 
 # ######################################################
